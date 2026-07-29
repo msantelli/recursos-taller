@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!-- Página generada automáticamente por generar-materiales.js
+     a partir de un apunte en Markdown. No editar a mano: editá
+     el archivo .md correspondiente y volvé a correr el script. -->
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Git para gente de letras — Taller de uso avanzado de IA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;0,7..72,700;1,7..72,400&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2317497a'/%3E%3Ctext x='16' y='23' font-family='monospace' font-size='20' fill='%23faf8f5' text-anchor='middle'%3E%24%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../estilos.css">
+  <script>
+    (function () {
+      var tema = null;
+      try { tema = localStorage.getItem("tema"); } catch (e) {}
+      if (tema === "claro" || tema === "oscuro") {
+        document.documentElement.setAttribute("data-tema", tema);
+      }
+    })();
+  </script>
+</head>
+<body>
+  <nav class="navegacion" aria-label="Navegación">
+    <div class="navegacion-interior">
+      <a href="../index.html">← Volver a la página principal</a>
+      <button class="boton-tema" id="boton-tema" type="button" aria-label="Cambiar entre modo claro y oscuro">modo</button>
+    </div>
+  </nav>
+  <div class="contenido">
+    <main class="pagina-interior">
+<h1>Git para gente de letras</h1>
+<p><em>Material del Taller de uso avanzado de IA — Letra y Código, Departamento de Letras, FFyL–UBA.</em></p>
+<h2>Por qué versionar</h2>
+<p>Si alguna vez tuviste una carpeta con <code>monografia_final.doc</code>, <code>monografia_final_AHORA_SI.doc</code> y <code>monografia_final_post_comentarios2.doc</code>, ya entendiste el problema que Git resuelve. Git guarda <strong>todas las versiones</strong> de tus archivos, con fecha, autor y una nota que explica qué cambió. Es un &quot;deshacer&quot; con historia infinita: podés recuperar el párrafo que borraste hace tres semanas, comparar lo que mandaste con lo que tenés ahora, y trabajar con otras personas sin pisarse.</p>
+<p>No es una herramienta &quot;de programadores&quot;: es una herramienta de <strong>gestión de manuscritos</strong>. Los programadores la usan porque su material de trabajo es texto — igual que el nuestro.</p>
+<h2>Cuatro palabras que hay que saber</h2>
+<ul>
+<li><strong>Repositorio (repo):</strong> una carpeta cuya historia Git está siguiendo.</li>
+<li><strong>Commit:</strong> una instantánea guardada de la carpeta en un momento dado, con su mensaje descriptivo.</li>
+<li><strong>Remoto:</strong> la copia del repositorio que vive en un servidor (por ejemplo, GitHub). Sirve de respaldo y de punto de encuentro para colaborar.</li>
+<li><strong>Push / pull:</strong> subir tus commits al remoto / bajar los de otros.</li>
+</ul>
+<h2>El ciclo diario (esto es el 90% del uso real)</h2>
+<pre><code>git status                     # ¿qué cambió desde la última vez?
+git add .                      # marcar todo para guardar
+git commit -m &quot;Qué hice y por qué&quot;   # guardar la instantánea
+git push                       # subirla a GitHub</code></pre>
+<p>Cuatro comandos. Todo lo demás es para situaciones especiales.</p>
+<h2>Mirar la historia</h2>
+<pre><code>git log --oneline              # la historia, un commit por línea
+git diff                       # qué cambió y todavía no guardé
+git diff archivo.md            # qué cambió en un archivo puntual</code></pre>
+<h2>Deshacer (los tres casos que importan)</h2>
+<pre><code>git restore archivo.md         # descartar cambios no guardados de un archivo
+git restore --staged archivo.md  # &quot;des-marcar&quot; un archivo ya agregado con add
+git reset HEAD~1               # deshacer el último commit, conservando los cambios</code></pre>
+<p>⚠️ Existe <code>git reset --hard</code>, que deshace <strong>borrando</strong> los cambios para siempre. No lo uses hasta entender bien qué hace.</p>
+<h2>Empezar un proyecto</h2>
+<pre><code># Opción A: convertir una carpeta existente en repositorio
+cd mi-proyecto
+git init
+git add .
+git commit -m &quot;Commit inicial&quot;
+
+# Opción B: bajar un repositorio que ya existe
+git clone https://github.com/usuario/nombre-del-repo.git</code></pre>
+<p>Para conectar tu repo local con GitHub: creá el repositorio en github.com (botón &quot;+&quot; → &quot;New repository&quot;; elegí <strong>Private</strong> si es trabajo inédito y no marques ninguna casilla de inicialización) y seguí los dos o tres comandos que GitHub te muestra al crearlo.</p>
+<h2>Qué no versionar</h2>
+<p>Un archivo llamado <code>.gitignore</code> en la raíz del repo lista lo que Git debe ignorar: archivos generados automáticamente, descargas pesadas, y —importante— <strong>cualquier dato sensible o clave de acceso</strong>. Regla simple: se versiona lo que escribiste vos; no lo que se puede regenerar ni lo que no querrías ver publicado.</p>
+<h2>Mensajes de commit que sirven</h2>
+<p>El mensaje es para tu yo del futuro. Compará:</p>
+<ul>
+<li>✅ &quot;Agrego sección sobre actos de habla en Austin&quot;</li>
+<li>✅ &quot;Corrijo erratas del resumen tras comentarios de la directora&quot;</li>
+<li>❌ &quot;cambios&quot;</li>
+<li>❌ &quot;asdf&quot;</li>
+</ul>
+<p>Frecuencia sana: un commit por cada cambio coherente (una sección nueva, una corrección terminada) — ni uno por oración, ni uno por semana.</p>
+<h2>Tarjeta de referencia</h2>
+<pre><code>git status      # ¿qué cambió?
+git add .       # marcar para guardar
+git commit -m &quot;mensaje&quot;   # guardar instantánea
+git push        # subir al remoto
+git pull        # bajar novedades del remoto
+git log --oneline         # ver la historia
+git restore archivo       # descartar cambios de un archivo</code></pre>
+<h2>Para seguir</h2>
+<ul>
+<li>Libro oficial (gratuito): <a href="https://git-scm.com/book">https://git-scm.com/book</a></li>
+<li>Tutorial interactivo: <a href="https://learngitbranching.js.org/">https://learngitbranching.js.org/</a></li>
+<li>Cheatsheet en PDF de GitHub: <a href="https://education.github.com/git-cheat-sheet-education.pdf">https://education.github.com/git-cheat-sheet-education.pdf</a></li>
+</ul>
+    </main>
+    <footer>
+      <p>Taller de uso avanzado de IA — <a href="https://letras.filo.uba.ar/letra-y-c%C3%B3digo">Letra y Código</a>, Departamento de Letras, FFyL–UBA, 2026.</p>
+    </footer>
+  </div>
+  <script src="../script.js"></script>
+</body>
+</html>

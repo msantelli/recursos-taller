@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!-- Página generada automáticamente por generar-materiales.js
+     a partir de un apunte en Markdown. No editar a mano: editá
+     el archivo .md correspondiente y volvé a correr el script. -->
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La terminal en 10 comandos — Taller de uso avanzado de IA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;0,7..72,700;1,7..72,400&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2317497a'/%3E%3Ctext x='16' y='23' font-family='monospace' font-size='20' fill='%23faf8f5' text-anchor='middle'%3E%24%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../estilos.css">
+  <script>
+    (function () {
+      var tema = null;
+      try { tema = localStorage.getItem("tema"); } catch (e) {}
+      if (tema === "claro" || tema === "oscuro") {
+        document.documentElement.setAttribute("data-tema", tema);
+      }
+    })();
+  </script>
+</head>
+<body>
+  <nav class="navegacion" aria-label="Navegación">
+    <div class="navegacion-interior">
+      <a href="../index.html">← Volver a la página principal</a>
+      <button class="boton-tema" id="boton-tema" type="button" aria-label="Cambiar entre modo claro y oscuro">modo</button>
+    </div>
+  </nav>
+  <div class="contenido">
+    <main class="pagina-interior">
+<h1>La terminal en 10 comandos</h1>
+<p><em>Material del Taller de uso avanzado de IA — Letra y Código, Departamento de Letras, FFyL–UBA.</em></p>
+<h2>Qué es esto</h2>
+<p>La terminal es una interfaz donde la computadora se maneja <strong>escribiendo</strong> en vez de haciendo click. Para gente que trabaja con texto no debería ser terreno hostil: es un diálogo por turnos — uno escribe una orden, la máquina responde. Los agentes de IA como Claude Code viven acá, así que perderle el miedo a la terminal es el primer paso del vibecoding.</p>
+<p><strong>Cómo abrirla:</strong> en Windows, buscar &quot;Terminal&quot; o &quot;PowerShell&quot; en el menú de inicio; en Mac, la aplicación &quot;Terminal&quot; (está en Utilidades); en Linux, Ctrl+Alt+T o buscar &quot;Terminal&quot;.</p>
+<h2>Los 10 comandos</h2>
+<pre><code>pwd                # 1. ¿Dónde estoy? (imprime la carpeta actual)
+ls                 # 2. ¿Qué hay acá? (lista los archivos)
+cd nombre-carpeta  # 3. Entrar a una carpeta
+cd ..              # 4. Subir a la carpeta de arriba
+mkdir mi-carpeta   # 5. Crear una carpeta
+cp original.md copia.md   # 6. Copiar un archivo
+mv viejo.md nuevo.md      # 7. Mover o renombrar
+cat archivo.md     # 8. Mostrar el contenido de un archivo
+clear              # 9. Limpiar la pantalla
+rm archivo.md      # 10. Borrar un archivo (⚠️ ver abajo)</code></pre>
+<h2>Tres trucos que cambian todo</h2>
+<ol>
+<li><strong>Tab autocompleta.</strong> Escribí las primeras letras de un archivo o carpeta y apretá Tab: la terminal completa el nombre. Nadie tipea rutas completas a mano.</li>
+<li><strong>Las flechas ↑↓ recorren el historial.</strong> El comando que escribiste hace cinco minutos se recupera con ↑, no se vuelve a tipear.</li>
+<li><strong>Ctrl+C cancela.</strong> Si algo quedó colgado o te arrepentiste, Ctrl+C corta el comando en ejecución. (Ojo: acá Ctrl+C no es &quot;copiar&quot;.)</li>
+</ol>
+<h2>Dos advertencias</h2>
+<ul>
+<li><strong><code>rm</code> no manda a la papelera.</strong> Lo que se borra con <code>rm</code> se borra en serio. Antes de borrar, <code>ls</code> para mirar bien dónde estás parado.</li>
+<li><strong>Los espacios importan.</strong> Para la terminal, <code>mi monografia.md</code> son dos cosas. O se escribe entre comillas (<code>&quot;mi monografia.md&quot;</code>) o —mejor costumbre— se nombran los archivos sin espacios: <code>mi-monografia.md</code>.</li>
+</ul>
+<h2>El comando 11</h2>
+<p>Con esto alcanza para la clase: navegar hasta una carpeta y ahí adentro invocar al agente (<code>claude</code>), que entiende castellano. La terminal es el zaguán; el trabajo, de ahí en más, se conversa.</p>
+    </main>
+    <footer>
+      <p>Taller de uso avanzado de IA — <a href="https://letras.filo.uba.ar/letra-y-c%C3%B3digo">Letra y Código</a>, Departamento de Letras, FFyL–UBA, 2026.</p>
+    </footer>
+  </div>
+  <script src="../script.js"></script>
+</body>
+</html>

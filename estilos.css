@@ -1,0 +1,575 @@
+/* ============================================================
+   Hoja de estilos del sitio del Taller de uso avanzado de IA
+   (Letra y Código, Departamento de Letras, FFyL–UBA)
+
+   La idea tipográfica: dos voces que conviven.
+   — Literata (serif editorial) para el cuerpo de lectura.
+   — IBM Plex Mono (monoespaciada) para etiquetas, metadatos,
+     términos técnicos y código.
+   El contraste entre ambas es el tema de la página hecho forma:
+   la hoja impresa y la terminal, juntas.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   Variables de color ("tokens"). El modo claro es el punto de
+   partida; el oscuro redefine las mismas variables más abajo.
+   Una sola tinta de acento: azul profundo, de estilográfica.
+   ------------------------------------------------------------ */
+:root {
+  --papel: #faf8f5;          /* fondo: papel neutro, apenas cálido */
+  --tinta: #23201d;          /* texto principal */
+  --acento: #17497a;         /* la única tinta de acento: azul profundo */
+  --gris: #6b6660;           /* metadatos, texto secundario */
+  --filete: #d9d4cc;         /* líneas finas, como de página impresa */
+  --fondo-codigo: #f1eee8;   /* fondo de bloques de código */
+  --papel-translucido: rgba(250, 248, 245, 0.88); /* barra de navegación */
+
+  /* Las dos pilas tipográficas, con reservas del sistema */
+  --serif: "Literata", Georgia, "Times New Roman", serif;
+  --mono: "IBM Plex Mono", ui-monospace, "Courier New", monospace;
+}
+
+/* Modo oscuro automático, según la preferencia del sistema */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --papel: #16181c;
+    --tinta: #d8d5cf;
+    --acento: #8fb6e0;
+    --gris: #8f8d88;
+    --filete: #33363c;
+    --fondo-codigo: #1f2228;
+    --papel-translucido: rgba(22, 24, 28, 0.88);
+  }
+}
+
+/* Modo elegido a mano con el botón (pisa a la preferencia del
+   sistema; el atributo data-tema lo pone script.js en <html>) */
+:root[data-tema="claro"] {
+  --papel: #faf8f5;
+  --tinta: #23201d;
+  --acento: #17497a;
+  --gris: #6b6660;
+  --filete: #d9d4cc;
+  --fondo-codigo: #f1eee8;
+  --papel-translucido: rgba(250, 248, 245, 0.88);
+}
+:root[data-tema="oscuro"] {
+  --papel: #16181c;
+  --tinta: #d8d5cf;
+  --acento: #8fb6e0;
+  --gris: #8f8d88;
+  --filete: #33363c;
+  --fondo-codigo: #1f2228;
+  --papel-translucido: rgba(22, 24, 28, 0.88);
+}
+
+/* ------------------------------------------------------------
+   Base
+   ------------------------------------------------------------ */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  /* El desplazamiento suave solo si la persona no pidió reducir movimiento */
+  scroll-padding-top: 4rem; /* que los anclajes no queden tapados por la barra */
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--papel);
+  color: var(--tinta);
+  font-family: var(--serif);
+  font-size: 1.1875rem;  /* 19px: cuerpo generoso para leer cómodo */
+  line-height: 1.68;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Columna de lectura centrada, de ancho editorial */
+.contenido {
+  max-width: 46rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: var(--acento);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* Foco visible para navegar con teclado */
+:focus-visible {
+  outline: 2px solid var(--acento);
+  outline-offset: 2px;
+  border-radius: 1px;
+}
+
+::selection {
+  background: var(--acento);
+  color: var(--papel);
+}
+
+/* Enlace para saltar directo al contenido (accesibilidad) */
+.salto-contenido {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--acento);
+  color: var(--papel);
+  padding: 0.5rem 1rem;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  z-index: 100;
+}
+
+.salto-contenido:focus {
+  left: 0.5rem;
+  top: 0.5rem;
+}
+
+/* ------------------------------------------------------------
+   Barra de navegación fija
+   ------------------------------------------------------------ */
+.navegacion {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--papel-translucido);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--filete);
+}
+
+.navegacion-interior {
+  max-width: 46rem;
+  margin-inline: auto;
+  padding: 0.55rem 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 1.1rem;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+}
+
+.navegacion a {
+  color: var(--tinta);
+  text-decoration: none;
+}
+
+.navegacion a:hover {
+  color: var(--acento);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* El botón de tema, al final de la barra */
+.boton-tema {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  background: none;
+  border: 1px solid var(--filete);
+  border-radius: 2px;
+  color: var(--tinta);
+  padding: 0.2rem 0.6rem;
+  cursor: pointer;
+}
+
+.boton-tema:hover {
+  border-color: var(--acento);
+  color: var(--acento);
+}
+
+/* ------------------------------------------------------------
+   Encabezado (hero)
+   ------------------------------------------------------------ */
+.hero {
+  padding-block: 4.5rem 3rem;
+}
+
+.hero-etiqueta {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  color: var(--gris);
+  margin: 0 0 1.2rem;
+}
+
+.hero h1 {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: clamp(2.2rem, 6vw, 3.3rem);
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  margin: 0 0 1rem;
+  text-wrap: balance; /* reparte mejor los cortes de línea del título */
+}
+
+.hero-subtitulo {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  margin: 0 0 2rem;
+}
+
+/* La línea-prompt: el motivo de la página. Una orden de terminal
+   escrita en castellano, porque la interfaz fue el castellano. */
+.hero-prompt {
+  font-family: var(--mono);
+  font-size: 0.92rem;
+  color: var(--gris);
+  border-top: 1px solid var(--filete);
+  padding-top: 1.1rem;
+  margin: 0;
+}
+
+.hero-prompt .signo {
+  color: var(--acento);
+  font-weight: 600;
+}
+
+.hero-prompt .cursor {
+  color: var(--acento);
+}
+
+/* ------------------------------------------------------------
+   Secciones
+   ------------------------------------------------------------ */
+section {
+  border-top: 1px solid var(--filete);
+  padding-block: 3rem 3.2rem;
+}
+
+/* La "ceja": etiqueta monoespaciada arriba del título de sección.
+   En los módulos numera la clase (una secuencia real). */
+.ceja {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  color: var(--acento);
+  margin: 0 0 0.5rem;
+}
+
+h2 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 1.75rem;
+  line-height: 1.25;
+  margin: 0 0 1.1rem;
+}
+
+/* El motivo "> " en títulos de secciones técnicas */
+h2 .motivo {
+  font-family: var(--mono);
+  color: var(--acento);
+  font-weight: 500;
+}
+
+h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin: 2.2rem 0 0.6rem;
+}
+
+/* Subtítulos de lista, en voz de máquina */
+.subtitulo-lista {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--gris);
+  margin: 2.2rem 0 0.4rem;
+}
+
+p {
+  margin: 0 0 1.1rem;
+}
+
+/* ------------------------------------------------------------
+   Listas de recursos y materiales: filetes finos entre ítems
+   ------------------------------------------------------------ */
+.lista-recursos,
+.lista-materiales {
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0;
+}
+
+.lista-recursos > li,
+.lista-materiales > li {
+  padding-block: 0.55rem;
+  border-bottom: 1px solid var(--filete);
+}
+
+.lista-recursos > li:last-child,
+.lista-materiales > li:last-child {
+  border-bottom: none;
+}
+
+/* Etiqueta de tipo de material (pdf, apunte, imagen…) */
+.material-tipo {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  color: var(--gris);
+  white-space: nowrap;
+  margin-left: 0.6rem;
+}
+
+.lista-materiales > li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* Aviso amable cuando todavía no hay materiales */
+.aviso {
+  font-style: italic;
+  color: var(--gris);
+}
+
+/* Bloque destacado (la guía práctica, por ejemplo) */
+.destacado {
+  border: 1px solid var(--filete);
+  border-left: 3px solid var(--acento);
+  border-radius: 2px;
+  background: var(--fondo-codigo);
+  padding: 1rem 1.2rem;
+  margin: 1.4rem 0;
+}
+
+.destacado p {
+  margin: 0;
+}
+
+/* ------------------------------------------------------------
+   Código
+   ------------------------------------------------------------ */
+code {
+  font-family: var(--mono);
+  font-size: 0.86em;
+  background: var(--fondo-codigo);
+  border: 1px solid var(--filete);
+  border-radius: 2px;
+  padding: 0.08em 0.35em;
+  overflow-wrap: break-word; /* nombres largos se parten en pantallas chicas */
+}
+
+/* Las URLs y palabras larguísimas tampoco deben desbordar la columna */
+p, li, dd {
+  overflow-wrap: break-word;
+}
+
+pre {
+  background: var(--fondo-codigo);
+  border: 1px solid var(--filete);
+  border-radius: 2px;
+  padding: 1rem 1.2rem;
+  overflow-x: auto; /* el scroll queda dentro del bloque, nunca en la página */
+  line-height: 1.5;
+  margin: 0 0 1.2rem;
+}
+
+pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 0.85rem;
+}
+
+/* ------------------------------------------------------------
+   Glosario
+   ------------------------------------------------------------ */
+.buscador-glosario {
+  display: block;
+  width: 100%;
+  font-family: var(--mono);
+  font-size: 0.95rem;
+  color: var(--tinta);
+  background: var(--fondo-codigo);
+  border: 1px solid var(--filete);
+  border-radius: 2px;
+  padding: 0.65rem 0.9rem;
+  margin: 0.4rem 0 1.4rem;
+}
+
+.buscador-glosario::placeholder {
+  color: var(--gris);
+}
+
+.glosario dl {
+  margin: 0;
+}
+
+.glosario .termino {
+  padding-block: 0.75rem;
+  border-bottom: 1px solid var(--filete);
+}
+
+.glosario dt {
+  font-family: var(--mono);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--acento);
+}
+
+.glosario dd {
+  margin: 0.25rem 0 0;
+}
+
+.sin-resultados {
+  font-style: italic;
+  color: var(--gris);
+  padding-block: 1rem;
+}
+
+/* ------------------------------------------------------------
+   Seguridad: lista con término inicial resaltado
+   ------------------------------------------------------------ */
+.lista-puntos {
+  margin: 0 0 1rem;
+  padding-left: 1.2rem;
+}
+
+.lista-puntos > li {
+  margin-bottom: 0.9rem;
+}
+
+/* ------------------------------------------------------------
+   Sección "Cómo se hizo": el bloque colapsable de la spec
+   ------------------------------------------------------------ */
+details {
+  border: 1px solid var(--filete);
+  border-radius: 2px;
+  padding: 0.8rem 1.1rem;
+  margin: 1.4rem 0;
+}
+
+summary {
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--acento);
+}
+
+details[open] summary {
+  margin-bottom: 0.8rem;
+}
+
+.iteraciones {
+  padding-left: 1.4rem;
+}
+
+.iteraciones li {
+  margin-bottom: 0.6rem;
+}
+
+.iteraciones .pendiente {
+  color: var(--gris);
+  font-style: italic;
+}
+
+.cierre {
+  font-family: var(--mono);
+  font-size: 0.92rem;
+  color: var(--gris);
+  margin-top: 2rem;
+}
+
+.cierre .signo {
+  color: var(--acento);
+  font-weight: 600;
+}
+
+/* ------------------------------------------------------------
+   Pie de página
+   ------------------------------------------------------------ */
+footer {
+  border-top: 1px solid var(--filete);
+  padding-block: 2.4rem 3rem;
+  font-size: 0.95rem;
+  color: var(--gris);
+}
+
+footer p {
+  margin: 0;
+}
+
+/* ------------------------------------------------------------
+   Páginas interiores (guía y apuntes convertidos de Markdown)
+   ------------------------------------------------------------ */
+.pagina-interior {
+  padding-block: 3rem;
+}
+
+.pagina-interior h1 {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: clamp(1.9rem, 5vw, 2.6rem);
+  line-height: 1.15;
+  margin: 0 0 1.2rem;
+}
+
+.pagina-interior h2 {
+  margin-top: 2.4rem;
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--filete);
+}
+
+.pagina-interior ul,
+.pagina-interior ol {
+  padding-left: 1.4rem;
+  margin: 0 0 1.1rem;
+}
+
+.pagina-interior li {
+  margin-bottom: 0.45rem;
+}
+
+/* ------------------------------------------------------------
+   Ajustes para pantallas chicas (teléfono)
+   ------------------------------------------------------------ */
+@media (max-width: 600px) {
+  body {
+    font-size: 1.125rem; /* 18px: nunca menos que esto */
+  }
+
+  .hero {
+    padding-block: 3rem 2.2rem;
+  }
+
+  .navegacion-interior {
+    gap: 0.3rem 0.85rem;
+  }
+
+  .lista-materiales > li {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.15rem;
+  }
+
+  .material-tipo {
+    margin-left: 0;
+  }
+}

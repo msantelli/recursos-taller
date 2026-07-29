@@ -1,0 +1,12 @@
+# Claves y configuraciones privadas: NUNCA se versionan
+# (ver la sección "Seguridad mínima" de la página)
+.env
+.env.*
+
+# Carpetas generadas por herramientas
+node_modules/
+.vercel/
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db

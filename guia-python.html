@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<!-- ============================================================
+     Guía práctica: instalar Python y manejar un proyecto con uv.
+     Subpágina pedida en recursos.md ("Pedido para la página").
+     Es la única parte del sitio con contenido redactado propio
+     más allá de los enlaces.
+     ============================================================ -->
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guía práctica: Python y uv — Taller de uso avanzado de IA</title>
+  <meta name="description" content="Instalar Python por primera vez, entender la variable PATH y manejar un proyecto con uv de punta a punta. Guía para gente sin experiencia técnica.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;0,7..72,700;1,7..72,400&display=swap" rel="stylesheet">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2317497a'/%3E%3Ctext x='16' y='23' font-family='monospace' font-size='20' fill='%23faf8f5' text-anchor='middle'%3E%24%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="estilos.css">
+
+  <!-- Aplica el tema guardado antes de pintar (igual que en index) -->
+  <script>
+    (function () {
+      var tema = null;
+      try { tema = localStorage.getItem("tema"); } catch (e) {}
+      if (tema === "claro" || tema === "oscuro") {
+        document.documentElement.setAttribute("data-tema", tema);
+      }
+    })();
+  </script>
+</head>
+<body>
+
+  <nav class="navegacion" aria-label="Navegación">
+    <div class="navegacion-interior">
+      <a href="index.html">← Volver a la página principal</a>
+      <a href="#instalar-python">Instalar Python</a>
+      <a href="#la-variable-path">PATH</a>
+      <a href="#proyecto-con-uv">Proyecto con uv</a>
+      <button class="boton-tema" id="boton-tema" type="button" aria-label="Cambiar entre modo claro y oscuro">modo</button>
+    </div>
+  </nav>
+
+  <div class="contenido">
+
+    <main class="pagina-interior">
+
+      <p class="ceja">$ guía práctica</p>
+      <h1>Instalar Python y manejar un proyecto con uv</h1>
+      <p>
+        Esta guía está pensada para quien nunca instaló nada: va de cero a un
+        proyecto de Python funcionando, con un ejemplo chico de verdad. Son tres
+        partes: instalar Python, entender (y si hace falta, arreglar) la variable
+        PATH, y llevar un proyecto de punta a punta con
+        <a href="https://docs.astral.sh/uv/">uv</a>.
+      </p>
+
+      <!-- ==================== 1. Instalar Python ==================== -->
+      <h2 id="instalar-python">1. Instalar Python por primera vez</h2>
+      <p>
+        Python es el lenguaje en que están escritas muchas de las herramientas
+        que rodean a los modelos de lenguaje. Antes de usarlas hay que tener
+        Python instalado — una sola vez por computadora.
+      </p>
+
+      <h3>¿Ya lo tengo?</h3>
+      <p>
+        Puede que sí: macOS y Linux suelen traerlo. Abrí una terminal y escribí:
+      </p>
+      <pre><code>python3 --version</code></pre>
+      <p>
+        Si responde algo como <code>Python 3.12.4</code>, ya está: pasá directo a
+        la <a href="#proyecto-con-uv">parte 3</a>. Si responde que no conoce el
+        comando, seguí leyendo.
+      </p>
+
+      <h3>En Windows</h3>
+      <ol>
+        <li>Descargá el instalador desde el sitio oficial:
+          <a href="https://www.python.org/downloads/">python.org/downloads</a>.</li>
+        <li>Al abrirlo, <strong>antes de tocar «Install Now», marcá la casilla
+          «Add python.exe to PATH»</strong>. Es una casilla chica abajo de todo,
+          fácil de pasar por alto, y ahorra el problema más común de todos
+          (explicado en la parte 2).</li>
+        <li>Terminada la instalación, cerrá y volvé a abrir la terminal, y
+          verificá con <code>python --version</code>.</li>
+      </ol>
+      <p>
+        La referencia completa es la
+        <a href="https://docs.python.org/es/3/using/windows.html">guía oficial de
+        Python para Windows</a> (en castellano).
+      </p>
+
+      <h3>En macOS y Linux</h3>
+      <p>
+        Si <code>python3 --version</code> no respondió, descargá el instalador
+        para tu sistema desde el mismo sitio oficial:
+        <a href="https://www.python.org/downloads/">python.org/downloads</a>.
+        En Linux también suele estar disponible con el gestor de paquetes de la
+        distribución (por ejemplo, <code>sudo apt install python3</code> en
+        Ubuntu).
+      </p>
+
+      <h3>La alternativa: que uv lo instale por vos</h3>
+      <p>
+        La herramienta uv, que usamos en la parte 3, puede
+        <a href="https://docs.astral.sh/uv/guides/install-python/">instalar
+        Python por sí sola</a>: si instalás uv primero, un
+        <code>uv python install</code> descarga la última versión sin pasar por
+        el instalador clásico. Para quien empieza de cero, es el camino con
+        menos pasos.
+      </p>
+
+      <!-- ==================== 2. La variable PATH ==================== -->
+      <h2 id="la-variable-path">2. La variable PATH (y el error más común)</h2>
+      <p>
+        Cuando escribís <code>python</code> en la terminal, la computadora tiene
+        que encontrar el programa que se llama así. No revisa todo el disco:
+        consulta una lista de carpetas donde buscar. Esa lista es la variable
+        <strong>PATH</strong>. Pensala como el índice de una biblioteca: si un
+        libro no figura en el índice, está en el edificio pero nadie lo
+        encuentra.
+      </p>
+
+      <h3>El síntoma</h3>
+      <pre><code>"python" no se reconoce como un comando interno o externo,
+programa o archivo por lotes ejecutable.</code></pre>
+      <p>
+        Este mensaje (o su variante <code>command not found</code>) casi nunca
+        significa que Python no está instalado: significa que la carpeta donde
+        quedó instalado <strong>no figura en el PATH</strong>. El libro está; el
+        índice no lo lista.
+      </p>
+
+      <h3>Cómo arreglarlo</h3>
+      <ol>
+        <li><strong>El arreglo más simple (Windows):</strong> volvé a correr el
+          instalador de Python, elegí «Modify» y asegurate de marcar la casilla
+          «Add python.exe to PATH». Cerrá y volvé a abrir la terminal — los
+          cambios al PATH solo se ven en terminales nuevas.</li>
+        <li><strong>El arreglo a mano:</strong> se puede editar el PATH desde la
+          configuración del sistema, agregando la carpeta de Python. El
+          procedimiento exacto está en la
+          <a href="https://docs.python.org/es/3.12/using/windows.html#excursus-setting-environment-variables">documentación
+          oficial de Python sobre variables de entorno</a> (en castellano).</li>
+        <li><strong>El arreglo por elevación:</strong> el
+          <a href="https://docs.astral.sh/uv/getting-started/installation/">instalador
+          de uv</a> configura el PATH solo. Si el PATH te está dando pelea,
+          instalar uv y dejar que él maneje Python suele ser la salida más
+          corta.</li>
+      </ol>
+
+      <!-- ==================== 3. Proyecto con uv ==================== -->
+      <h2 id="proyecto-con-uv">3. Un proyecto con uv, de punta a punta</h2>
+      <p>
+        uv es un gestor de proyectos de Python: crea la carpeta, aísla las
+        dependencias (cada proyecto tiene las suyas, sin romper nada del
+        sistema) y ejecuta los programas. Vamos a hacer un proyecto real aunque
+        mínimo: un script que cuenta las palabras de un archivo de texto — un
+        primer gesto de lectura distante. Seguimos los pasos de la
+        <a href="https://docs.astral.sh/uv/guides/projects/">guía oficial de
+        proyectos de uv</a>.
+      </p>
+
+      <h3>Paso 0: instalar uv</h3>
+      <p>
+        Una sola vez, con el comando que indica la
+        <a href="https://docs.astral.sh/uv/getting-started/installation/">página
+        oficial de instalación</a> para tu sistema. Al terminar, cerrá y abrí la
+        terminal y verificá:
+      </p>
+      <pre><code>uv --version</code></pre>
+
+      <h3>Paso 1: crear el proyecto</h3>
+      <pre><code>uv init contar-palabras
+cd contar-palabras</code></pre>
+      <p>
+        <code>uv init</code> crea una carpeta con lo esencial. Los dos archivos
+        que importan: <code>pyproject.toml</code>, la ficha del proyecto (su
+        nombre, su versión de Python, sus dependencias — como la página de
+        legales de un libro), y <code>main.py</code>, un programa de ejemplo que
+        podés borrar.
+      </p>
+
+      <h3>Paso 2: escribir el script</h3>
+      <p>
+        Creá en la carpeta un archivo llamado <code>contar.py</code> con este
+        contenido (con cualquier editor de texto; los comentarios explican cada
+        línea):
+      </p>
+      <pre><code># contar.py — cuenta las palabras de un archivo de texto
+# Uso: uv run contar.py mi-texto.txt
+
+import sys                # para leer lo que se escribe tras el comando
+from collections import Counter   # un contador de frecuencias ya hecho
+
+# El nombre del archivo es lo que viene después de "contar.py"
+archivo = sys.argv[1]
+
+# Leemos todo el texto y lo pasamos a minúsculas
+with open(archivo, encoding="utf-8") as f:
+    texto = f.read().lower()
+
+# Separamos en palabras (partiendo por espacios y saltos de línea)
+palabras = texto.split()
+
+print(f"El archivo tiene {len(palabras)} palabras.")
+print("Las diez más frecuentes:")
+for palabra, veces in Counter(palabras).most_common(10):
+    print(f"  {palabra}: {veces}")</code></pre>
+
+      <h3>Paso 3: probarlo</h3>
+      <p>
+        Poné cualquier archivo <code>.txt</code> en la carpeta (por ejemplo,
+        <code>cuento.txt</code> con un texto pegado de donde quieras) y corré:
+      </p>
+      <pre><code>uv run contar.py cuento.txt</code></pre>
+      <p>
+        <code>uv run</code> se ocupa de todo: si el proyecto necesita un Python
+        que no tenés, lo descarga; si hay dependencias declaradas, las instala;
+        y recién entonces ejecuta el script.
+      </p>
+
+      <h3>Paso 4: agregar una dependencia</h3>
+      <p>
+        Las dependencias son librerías ajenas que el proyecto usa. Se agregan
+        con <code>uv add</code>, que además las anota en
+        <code>pyproject.toml</code>. Probemos con
+        <code>rich</code>, que imprime tablas y colores en la terminal:
+      </p>
+      <pre><code>uv add rich</code></pre>
+      <p>
+        Y al final de <code>contar.py</code>, reemplazá el bloque del
+        <code>print</code> final por una tabla:
+      </p>
+      <pre><code>from rich.table import Table
+from rich.console import Console
+
+tabla = Table(title=f"Palabras más frecuentes de {archivo}")
+tabla.add_column("palabra")
+tabla.add_column("veces", justify="right")
+
+for palabra, veces in Counter(palabras).most_common(10):
+    tabla.add_row(palabra, str(veces))
+
+Console().print(tabla)</code></pre>
+      <p>
+        Corré de nuevo <code>uv run contar.py cuento.txt</code> y la lista sale
+        en una tabla con bordes.
+      </p>
+
+      <h3>Paso 5: compartir el proyecto</h3>
+      <p>
+        Acá está el premio de haber usado uv: si le pasás la carpeta a otra
+        persona (o la subís a un repositorio), a esa persona le alcanza con:
+      </p>
+      <pre><code>uv sync</code></pre>
+      <p>
+        Ese comando lee <code>pyproject.toml</code> e instala exactamente lo que
+        el proyecto declara — mismo Python, mismas librerías, mismas versiones.
+        Es la diferencia entre prestar un libro y prestar la biblioteca entera
+        ya ordenada.
+      </p>
+
+      <h3>Resumen de los cinco comandos</h3>
+      <pre><code>uv init mi-proyecto   # crear un proyecto nuevo
+uv add libreria       # declarar una dependencia
+uv run programa.py    # ejecutar (instala lo que falte)
+uv sync               # reconstruir el entorno de un proyecto ajeno
+uv python install     # instalar Python, si hiciera falta</code></pre>
+
+    </main>
+
+    <footer>
+      <p>
+        Taller de uso avanzado de IA —
+        <a href="https://letras.filo.uba.ar/letra-y-c%C3%B3digo">Letra y Código</a>,
+        Departamento de Letras, FFyL–UBA, 2026.
+      </p>
+    </footer>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
