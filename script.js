@@ -51,8 +51,8 @@ if (botonTema) {
    2. Buscador del glosario
    ------------------------------------------------------------
    Filtra los bloques .termino comparando lo tipeado contra el
-   término y su definición. Ignora mayúsculas y tildes, para que
-   "alucinacion" encuentre "alucinación".
+   término (el <dt>), no contra su definición. Ignora mayúsculas
+   y tildes, para que "alucinacion" encuentre "alucinación".
    ------------------------------------------------------------ */
 
 var buscador = document.getElementById("buscador-glosario");
@@ -74,8 +74,9 @@ if (buscador && listaGlosario) {
     var visibles = 0;
 
     terminos.forEach(function (termino) {
-      // Coincide si la consulta aparece en el término o en su definición
-      var coincide = normalizar(termino.textContent).indexOf(consulta) !== -1;
+      // Coincide solo si la consulta aparece en el nombre del término
+      var nombre = termino.querySelector("dt").textContent;
+      var coincide = normalizar(nombre).indexOf(consulta) !== -1;
       termino.hidden = !coincide;
       if (coincide) visibles++;
     });
