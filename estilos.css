@@ -530,6 +530,13 @@ pre code {
   padding-block: 1rem;
 }
 
+/* Encuadre de los términos fronterizos (sugeridos por el público) */
+.nota-fronteriza {
+  font-style: italic;
+  color: var(--gris);
+  margin-bottom: 0.4rem;
+}
+
 /* ------------------------------------------------------------
    Seguridad: lista con término inicial resaltado
    ------------------------------------------------------------ */

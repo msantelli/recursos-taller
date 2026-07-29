@@ -314,6 +314,10 @@
               <dd>Todo lo que el modelo «tiene a la vista» en una conversación: la consigna, lo dicho antes, los documentos adjuntos. Es una memoria de trabajo limitada: lo que queda afuera, el modelo no lo sabe.</dd>
             </div>
             <div class="termino">
+              <dt>temperatura</dt>
+              <dd>La perilla que regula cuánto se arriesga el modelo al elegir la palabra siguiente: baja, respuestas más previsibles; alta, más variadas y con más riesgo de disparate. La diferencia entre una traducción literal y una versión libre.</dd>
+            </div>
+            <div class="termino">
               <dt>modelo local</dt>
               <dd>Un modelo que corre en tu propia computadora, sin enviar nada a un servidor ajeno. Se gana privacidad e independencia; a cambio, suelen ser modelos más chicos que los comerciales.</dd>
             </div>
@@ -322,12 +326,24 @@
               <dd>Un modelo de lenguaje que además de responder puede actuar: leer archivos, buscar, ejecutar programas, y evaluar el resultado antes de seguir. Trabaja en ciclos, como quien redacta, relee y corrige.</dd>
             </div>
             <div class="termino">
+              <dt>harness</dt>
+              <dd>El andamiaje que rodea a un modelo para convertirlo en agente: las herramientas que puede usar, las reglas que sigue, los límites que no cruza. El modelo pone el lenguaje; el harness, el taller donde trabaja.</dd>
+            </div>
+            <div class="termino">
               <dt>vibecoding</dt>
               <dd>Programar delegando la escritura del código a un modelo de lenguaje. La destreza central no es tipear: es especificar bien lo que se quiere, criticar el resultado e iterar.</dd>
             </div>
             <div class="termino">
+              <dt>terminal</dt>
+              <dd>La interfaz donde la computadora se maneja escribiendo órdenes en vez de haciendo click: un diálogo por turnos — uno escribe, la máquina responde. Los agentes como Claude Code viven ahí.</dd>
+            </div>
+            <div class="termino">
               <dt>código fuente</dt>
               <dd>El texto que escriben las personas (o los modelos) para que la computadora haga algo. Es el manuscrito original de un programa: lo que se lee, se corrige y se versiona.</dd>
+            </div>
+            <div class="termino">
+              <dt>IDE</dt>
+              <dd>Sigla de «entorno de desarrollo integrado»: el programa donde se escribe y organiza el código, con sus ayudas — resaltado, correcciones, terminal incorporada. El escritorio del editor, con todo a mano. VS Code es el más usado.</dd>
             </div>
             <div class="termino">
               <dt>HTML</dt>
@@ -362,6 +378,10 @@
               <dd>La parte que corre en el servidor, invisible para quien visita: bases de datos, cuentas de usuario, la lógica que no puede quedar en el navegador.</dd>
             </div>
             <div class="termino">
+              <dt>arquitectura</dt>
+              <dd>La forma en que se reparten las piezas de un sistema y sus responsabilidades: qué hace el frontend, qué hace el backend, por dónde conversan. El plano del edificio, previo a los ladrillos.</dd>
+            </div>
+            <div class="termino">
               <dt>API</dt>
               <dd>Una puerta de servicio para programas: en vez de una página para leer con los ojos, una dirección donde un programa le pide datos o servicios a otro. Los modelos de lenguaje pagos suelen usarse así.</dd>
             </div>
@@ -374,6 +394,10 @@
               <dd>El nombre con que tu computadora se señala a sí misma. Un sitio en localhost existe solo para vos: es el borrador que todavía no salió de tu escritorio.</dd>
             </div>
             <div class="termino">
+              <dt>entorno</dt>
+              <dd>El conjunto de programas, versiones y configuraciones entre los que corre un proyecto: su ecosistema de trabajo. «En mi máquina funciona» casi siempre significa que dos entornos difieren; los entornos virtuales de Python existen para evitarlo.</dd>
+            </div>
+            <div class="termino">
               <dt>variable de entorno</dt>
               <dd>Un dato que un programa lee de su entorno en vez de llevarlo escrito adentro: típicamente claves y configuraciones. Permite publicar el código sin publicar los secretos.</dd>
             </div>
@@ -382,6 +406,24 @@
               <dd>La contraseña personal con que un servicio identifica quién le pide algo (y a quién cobrárselo). Se guarda en una variable de entorno y no se publica jamás.</dd>
             </div>
           </dl>
+
+          <!-- Términos sugeridos por el público que bordean el tema del
+               taller más que pertenecerle. Van aparte, con su encuadre.
+               Para agregar uno: mismo mecanismo que arriba. -->
+          <div class="grupo-glosario" id="grupo-fronterizos">
+            <h3 class="subtitulo-lista">Términos fronterizos</h3>
+            <p class="nota-fronteriza">Sugeridos por el público del taller: bordean el tema más que pertenecerle. Pero la frontera es zona fértil.</p>
+            <dl>
+              <div class="termino">
+                <dt>cognición</dt>
+                <dd>Los procesos de conocer: percibir, recordar, razonar, aprender. Si lo que hacen los modelos de lenguaje merece ese nombre es una discusión abierta — de las buenas, porque obliga a definir qué entendemos por comprender un texto.</dd>
+              </div>
+              <div class="termino">
+                <dt>entropía</dt>
+                <dd>Medida de la incertidumbre sobre lo que viene: cuanto más impredecible la próxima palabra, más entropía. Un verso de tango consagrado tiene poca; el arranque de un poema de vanguardia, mucha. Los modelos trabajan prediciendo en medio de esa incertidumbre (ver <em>temperatura</em>).</dd>
+              </div>
+            </dl>
+          </div>
           <!-- Mensaje que aparece cuando la búsqueda no encuentra nada -->
           <p class="sin-resultados" id="sin-resultados" hidden>
             Ningún término coincide con la búsqueda. Se pueden sugerir términos nuevos en clase.
@@ -461,6 +503,11 @@
             capitulares, el cursor que titila y la cinta de dos colores.</li>
           <li>«Y agregale alguna imagen de dominio público» — entró al hero el
             taller de imprenta de Jost Amman (1568), vía Wikimedia Commons.</li>
+          <li>«Hay algunas palabras del glosario que no incluiste; si se van de
+            tema, sumalas en una sección aparte» — de la planilla del público
+            entraron seis términos (terminal, temperatura, IDE, harness,
+            entorno, arquitectura) y nació «Términos fronterizos», con
+            cognición y entropía.</li>
           <li><span class="pendiente">(pendiente)</span> <!-- completar en clase --></li>
           <li><span class="pendiente">(pendiente)</span> <!-- completar en clase --></li>
         </ol>

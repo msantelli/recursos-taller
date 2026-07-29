@@ -84,5 +84,12 @@ if (buscador && listaGlosario) {
     if (sinResultados) {
       sinResultados.hidden = visibles > 0;
     }
+
+    // Los grupos con subtítulo (p. ej. "Términos fronterizos") se
+    // ocultan enteros cuando ninguno de sus términos coincide
+    listaGlosario.querySelectorAll(".grupo-glosario").forEach(function (grupo) {
+      var quedanVisibles = grupo.querySelectorAll(".termino:not([hidden])").length;
+      grupo.hidden = quedanVisibles === 0;
+    });
   });
 }
