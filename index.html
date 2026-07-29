@@ -59,18 +59,32 @@
 
     <!-- ==================== Encabezado ==================== -->
     <header class="hero">
-      <p class="hero-etiqueta">taller · tres clases · julio 2026</p>
-      <h1>Taller de uso avanzado de IA</h1>
-      <p class="hero-subtitulo">
-        Recursos y materiales de repaso —
-        <a href="https://letras.filo.uba.ar/letra-y-c%C3%B3digo">Letra y Código</a>,
-        Departamento de Letras, FFyL–UBA.
-      </p>
-      <p class="hero-prompt">
-        <span class="signo" aria-hidden="true">$&nbsp;</span>Esta página fue construida en vivo durante la clase de vibecoding —
-        <a href="#como-se-hizo">ver cómo se hizo</a>
-        <span class="cursor" aria-hidden="true">▮</span>
-      </p>
+      <div class="hero-texto">
+        <p class="hero-etiqueta">taller · tres clases · julio 2026</p>
+        <h1>Taller de uso avanzado de IA</h1>
+        <p class="hero-subtitulo">
+          Recursos y materiales de repaso —
+          <a href="https://letras.filo.uba.ar/letra-y-c%C3%B3digo">Letra y Código</a>,
+          Departamento de Letras, FFyL–UBA.
+        </p>
+        <p class="hero-prompt">
+          <span class="signo" aria-hidden="true">$&nbsp;</span>Esta página fue construida en vivo durante la clase de vibecoding —
+          <a href="#como-se-hizo">ver cómo se hizo</a>
+          <span class="cursor" aria-hidden="true">▮</span>
+        </p>
+      </div>
+      <!-- La lámina: un taller de imprenta del siglo XVI. Otros que
+           también delegaban la escritura en una máquina. -->
+      <figure class="hero-lamina">
+        <img
+          src="imagenes/imprenta-jost-amman-1568.png"
+          alt="Grabado en madera de 1568: cuatro operarios trabajan en un taller de imprenta alrededor de una prensa de tipos móviles."
+          width="751" height="879">
+        <figcaption>
+          Jost Amman, <em>El impresor</em> (Ständebuch, 1568). Dominio público —
+          <a href="https://commons.wikimedia.org/wiki/File:Buchdrucker-1568.png">Wikimedia Commons</a>.
+        </figcaption>
+      </figure>
     </header>
 
     <main>
@@ -79,7 +93,7 @@
       <section id="modelos-locales" aria-labelledby="titulo-modelos-locales">
         <p class="ceja">clase 01</p>
         <h2 id="titulo-modelos-locales">Modelos locales</h2>
-        <p>
+        <p class="intro-modulo">
           Correr un modelo «en tu computadora» significa que el programa que genera
           texto vive y trabaja en tu propia máquina, sin enviar nada a un servidor
           ajeno. Importa por tres razones: privacidad (lo que escribís no sale de tu
@@ -107,7 +121,7 @@
       <section id="agentes" aria-labelledby="titulo-agentes">
         <p class="ceja">clase 02</p>
         <h2 id="titulo-agentes">Agentes</h2>
-        <p>
+        <p class="intro-modulo">
           Un agente es un modelo de lenguaje que además de responder puede usar
           herramientas: leer archivos, buscar información, ejecutar programas.
           Trabaja en ciclos de acción y evaluación — prueba algo, mira el resultado,
@@ -136,7 +150,7 @@
       <section id="vibecoding" aria-labelledby="titulo-vibecoding">
         <p class="ceja">clase 03</p>
         <h2 id="titulo-vibecoding">Vibecoding</h2>
-        <p>
+        <p class="intro-modulo">
           Programar delegando la escritura del código a un modelo de lenguaje.
           La destreza central no es tipear código: es especificar bien lo que se
           quiere, criticar el resultado e iterar hasta que quede. Esta misma página
@@ -442,7 +456,11 @@
         <h3>Iteraciones</h3>
         <p>Los pedidos de cambio que fuimos haciendo en clase, en orden:</p>
         <ol class="iteraciones">
-          <li><span class="pendiente">(pendiente)</span> <!-- completar en clase --></li>
+          <li>«Está buena la página pero es un poco deprimente, ponele picante» —
+            apareció la segunda tinta (el rojo de las rúbricas), las letras
+            capitulares, el cursor que titila y la cinta de dos colores.</li>
+          <li>«Y agregale alguna imagen de dominio público» — entró al hero el
+            taller de imprenta de Jost Amman (1568), vía Wikimedia Commons.</li>
           <li><span class="pendiente">(pendiente)</span> <!-- completar en clase --></li>
           <li><span class="pendiente">(pendiente)</span> <!-- completar en clase --></li>
         </ol>
@@ -461,6 +479,8 @@
         <a href="https://letras.filo.uba.ar/letra-y-c%C3%B3digo">Letra y Código</a>,
         Departamento de Letras, FFyL–UBA, 2026.
       </p>
+      <!-- La misma firma que usa el afiche del taller -->
+      <p class="footer-firma" aria-hidden="true">&lt;="Letra y Código"/&gt;</p>
     </footer>
 
   </div>

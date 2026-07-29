@@ -18,11 +18,15 @@
 :root {
   --papel: #faf8f5;          /* fondo: papel neutro, apenas cálido */
   --tinta: #23201d;          /* texto principal */
-  --acento: #17497a;         /* la única tinta de acento: azul profundo */
+  --acento: #17497a;         /* tinta principal: azul profundo (enlaces) */
+  --rubrica: #b23a26;        /* segunda tinta: el rojo de las rúbricas de
+                                los manuscritos — y el coral del afiche */
   --gris: #6b6660;           /* metadatos, texto secundario */
   --filete: #d9d4cc;         /* líneas finas, como de página impresa */
   --fondo-codigo: #f1eee8;   /* fondo de bloques de código */
   --papel-translucido: rgba(250, 248, 245, 0.88); /* barra de navegación */
+  --filtro-lamina: none;     /* el grabado del hero, tal cual */
+  --mezcla-lamina: multiply; /* su blanco se funde con el papel */
 
   /* Las dos pilas tipográficas, con reservas del sistema */
   --serif: "Literata", Georgia, "Times New Roman", serif;
@@ -35,10 +39,13 @@
     --papel: #16181c;
     --tinta: #d8d5cf;
     --acento: #8fb6e0;
+    --rubrica: #ef8f77;
     --gris: #8f8d88;
     --filete: #33363c;
     --fondo-codigo: #1f2228;
     --papel-translucido: rgba(22, 24, 28, 0.88);
+    --filtro-lamina: invert(1);  /* el grabado en negativo */
+    --mezcla-lamina: screen;     /* su negro se funde con el fondo */
   }
 }
 
@@ -48,19 +55,25 @@
   --papel: #faf8f5;
   --tinta: #23201d;
   --acento: #17497a;
+  --rubrica: #b23a26;
   --gris: #6b6660;
   --filete: #d9d4cc;
   --fondo-codigo: #f1eee8;
   --papel-translucido: rgba(250, 248, 245, 0.88);
+  --filtro-lamina: none;
+  --mezcla-lamina: multiply;
 }
 :root[data-tema="oscuro"] {
   --papel: #16181c;
   --tinta: #d8d5cf;
   --acento: #8fb6e0;
+  --rubrica: #ef8f77;
   --gris: #8f8d88;
   --filete: #33363c;
   --fondo-codigo: #1f2228;
   --papel-translucido: rgba(22, 24, 28, 0.88);
+  --filtro-lamina: invert(1);
+  --mezcla-lamina: screen;
 }
 
 /* ------------------------------------------------------------
@@ -109,7 +122,10 @@ a {
   text-underline-offset: 3px;
 }
 
+/* Al pasar el mouse, el enlace se corrige en rojo, como una
+   anotación de editor sobre el manuscrito */
 a:hover {
+  color: var(--rubrica);
   text-decoration-thickness: 2px;
 }
 
@@ -121,7 +137,7 @@ a:hover {
 }
 
 ::selection {
-  background: var(--acento);
+  background: var(--rubrica);
   color: var(--papel);
 }
 
@@ -156,6 +172,19 @@ a:hover {
   border-bottom: 1px solid var(--filete);
 }
 
+/* La cinta de dos tintas: azul y rojo, las dos voces de la página,
+   como las cintas señaladoras de un libro bien encuadernado */
+.navegacion::before {
+  content: "";
+  display: block;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--acento) 0 50%,
+    var(--rubrica) 50% 100%
+  );
+}
+
 .navegacion-interior {
   max-width: 46rem;
   margin-inline: auto;
@@ -174,7 +203,7 @@ a:hover {
 }
 
 .navegacion a:hover {
-  color: var(--acento);
+  color: var(--rubrica);
   text-decoration: underline;
   text-underline-offset: 4px;
 }
@@ -193,8 +222,8 @@ a:hover {
 }
 
 .boton-tema:hover {
-  border-color: var(--acento);
-  color: var(--acento);
+  border-color: var(--rubrica);
+  color: var(--rubrica);
 }
 
 /* ------------------------------------------------------------
@@ -202,13 +231,47 @@ a:hover {
    ------------------------------------------------------------ */
 .hero {
   padding-block: 4.5rem 3rem;
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+/* En pantallas anchas, el texto a la izquierda y la lámina al lado */
+@media (min-width: 780px) {
+  .hero {
+    grid-template-columns: 1fr 15rem;
+  }
+}
+
+/* La lámina: el grabado se funde con el papel (sin fondo blanco) y
+   en modo oscuro se invierte, como un negativo de imprenta.
+   Los valores por tema están en las variables --filtro-lamina y
+   --mezcla-lamina, definidas junto a los colores. */
+.hero-lamina {
+  margin: 0;
+  max-width: 20rem;
+  justify-self: center;
+}
+
+.hero-lamina img {
+  display: block;
+  filter: var(--filtro-lamina);
+  mix-blend-mode: var(--mezcla-lamina);
+}
+
+.hero-lamina figcaption {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  line-height: 1.5;
+  color: var(--gris);
+  margin-top: 0.6rem;
 }
 
 .hero-etiqueta {
   font-family: var(--mono);
   font-size: 0.8rem;
   letter-spacing: 0.08em;
-  color: var(--gris);
+  color: var(--rubrica);
   margin: 0 0 1.2rem;
 }
 
@@ -240,12 +303,25 @@ a:hover {
 }
 
 .hero-prompt .signo {
-  color: var(--acento);
+  color: var(--rubrica);
   font-weight: 600;
 }
 
 .hero-prompt .cursor {
-  color: var(--acento);
+  color: var(--rubrica);
+}
+
+/* El cursor titila como en una terminal de verdad — salvo que la
+   persona haya pedido reducir el movimiento */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-prompt .cursor {
+    animation: titilar 1.1s steps(2, start) infinite;
+  }
+  @keyframes titilar {
+    to {
+      visibility: hidden;
+    }
+  }
 }
 
 /* ------------------------------------------------------------
@@ -262,7 +338,7 @@ section {
   font-family: var(--mono);
   font-size: 0.8rem;
   letter-spacing: 0.08em;
-  color: var(--acento);
+  color: var(--rubrica);
   margin: 0 0 0.5rem;
 }
 
@@ -277,8 +353,19 @@ h2 {
 /* El motivo "> " en títulos de secciones técnicas */
 h2 .motivo {
   font-family: var(--mono);
-  color: var(--acento);
+  color: var(--rubrica);
   font-weight: 500;
+}
+
+/* Capitular: la primera letra de la intro de cada módulo, grande y
+   en rojo, como las iniciales rubricadas de los manuscritos */
+.intro-modulo::first-letter {
+  float: left;
+  font-size: 3.1em;
+  line-height: 0.82;
+  font-weight: 600;
+  color: var(--rubrica);
+  padding-right: 0.12em;
 }
 
 h3 {
@@ -351,7 +438,7 @@ p {
 /* Bloque destacado (la guía práctica, por ejemplo) */
 .destacado {
   border: 1px solid var(--filete);
-  border-left: 3px solid var(--acento);
+  border-left: 3px solid var(--rubrica);
   border-radius: 2px;
   background: var(--fondo-codigo);
   padding: 1rem 1.2rem;
@@ -498,7 +585,7 @@ details[open] summary {
 }
 
 .cierre .signo {
-  color: var(--acento);
+  color: var(--rubrica);
   font-weight: 600;
 }
 
@@ -514,6 +601,14 @@ footer {
 
 footer p {
   margin: 0;
+}
+
+/* Guiño al afiche del taller, que firma con esta misma sintaxis */
+.footer-firma {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--rubrica);
+  margin-top: 0.8rem;
 }
 
 /* ------------------------------------------------------------
