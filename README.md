@@ -36,7 +36,7 @@ python3 -m http.server 8000
 1. **Copiá el archivo a la carpeta `materiales/`** (o a una subcarpeta, como `materiales/diapositivas/`). Conviene nombrarlo sin espacios: `mi-material.pdf`, no `mi material.pdf`.
 2. **¿A qué sección va a ir?** Se decide por el nombre del archivo:
    - si el nombre contiene `modelos-locales`, va al módulo *Modelos locales*;
-   - si contiene `agentes` (o `agente`), va a *Agentes*;
+   - si contiene `agentes` (o `agente`), o `n8n`, va a *Agentes*;
    - si contiene `vibecoding`, va a *Vibecoding*;
    - cualquier otro nombre va a *Materiales generales*.
 3. **Subí el cambio al repositorio** (desde la terminal, en esta carpeta):

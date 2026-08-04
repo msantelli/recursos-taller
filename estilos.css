@@ -449,6 +449,45 @@ p {
   margin: 0;
 }
 
+/* Línea de docente, bajo el título de cada clase */
+.docente {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  color: var(--gris);
+  margin: -0.6rem 0 1.1rem;
+}
+
+/* ------------------------------------------------------------
+   Capturas de pantalla paso a paso (el demo de n8n)
+   ------------------------------------------------------------ */
+.pasos-capturas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 1.2rem;
+  margin: 1.4rem 0;
+}
+
+.captura {
+  margin: 0;
+  flex: 1 1 14rem;
+  max-width: 19rem;
+}
+
+.captura img {
+  display: block;
+  border: 1px solid var(--filete);
+  border-radius: 2px;
+}
+
+.captura figcaption {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--gris);
+  margin-top: 0.4rem;
+}
+
 /* ------------------------------------------------------------
    Código
    ------------------------------------------------------------ */

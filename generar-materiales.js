@@ -46,6 +46,10 @@ const PALABRAS_CHICAS = new Set([
   "con", "para", "por", "a", "un", "una", "al",
 ]);
 
+// Nombres propios técnicos con grafía fija, que la capitalización
+// automática arruinaría ("n8n" no es "N8n")
+const GRAFIAS_FIJAS = { n8n: "n8n", ia: "IA" };
+
 // "1.clase-agentes-autonomos" → "Clase Agentes Autónomos" (aprox.):
 // saca numeración inicial, cambia guiones por espacios y capitaliza.
 function nombreLegible(nombreArchivo) {
@@ -58,8 +62,10 @@ function nombreLegible(nombreArchivo) {
   return limpio
     .split(" ")
     .map((palabra, i) => {
-      if (i > 0 && PALABRAS_CHICAS.has(palabra.toLowerCase())) {
-        return palabra.toLowerCase();
+      const minuscula = palabra.toLowerCase();
+      if (GRAFIAS_FIJAS[minuscula]) return GRAFIAS_FIJAS[minuscula];
+      if (i > 0 && PALABRAS_CHICAS.has(minuscula)) {
+        return minuscula;
       }
       return palabra.charAt(0).toUpperCase() + palabra.slice(1);
     })
@@ -72,6 +78,7 @@ function clasificarModulo(rutaRelativa) {
   const ruta = rutaRelativa.toLowerCase();
   if (/modelos?[-_ ]locales?/.test(ruta)) return "modelos-locales";
   if (/agente/.test(ruta)) return "agentes";
+  if (/n8n/.test(ruta)) return "agentes"; // los demos de n8n son de esa clase
   if (/vibecoding/.test(ruta)) return "vibecoding";
   return "generales";
 }
@@ -89,6 +96,7 @@ function tipoDeArchivo(rutaRelativa) {
     case ".mp3": case ".wav": case ".ogg": case ".m4a": return "audio";
     case ".mp4": case ".webm": return "video";
     case ".txt": return "texto";
+    case ".zip": return "carpeta comprimida · zip";
     case ".ppt": case ".pptx": case ".odp": case ".key": return "diapositivas";
     case ".doc": case ".docx": case ".odt": return "documento";
     case ".html": return "página";

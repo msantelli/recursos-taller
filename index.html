@@ -93,6 +93,7 @@
       <section id="modelos-locales" aria-labelledby="titulo-modelos-locales">
         <p class="ceja">clase 01</p>
         <h2 id="titulo-modelos-locales">Modelos locales</h2>
+        <p class="docente">docente: Mariano Vilar</p>
         <p class="intro-modulo">
           Correr un modelo «en tu computadora» significa que el programa que genera
           texto vive y trabaja en tu propia máquina, sin enviar nada a un servidor
@@ -121,6 +122,7 @@
       <section id="agentes" aria-labelledby="titulo-agentes">
         <p class="ceja">clase 02</p>
         <h2 id="titulo-agentes">Agentes</h2>
+        <p class="docente">docente: Pablo Zdrojewski</p>
         <p class="intro-modulo">
           Un agente es un modelo de lenguaje que además de responder puede usar
           herramientas: leer archivos, buscar información, ejecutar programas.
@@ -138,9 +140,61 @@
           </li>
         </ul>
 
+        <!-- El demo de n8n que se usó en la clase, con sus instrucciones
+             de importación. El zip queda además listado (por el script)
+             en "Materiales de la clase", más abajo. -->
+        <h3>El demo de la clase: un bot de agenda con n8n</h3>
+        <p>
+          En la clase trabajamos con <a href="https://n8n.io">n8n</a>, una
+          herramienta para armar <em>workflows</em>: cadenas de pasos que
+          conectan servicios entre sí —un calendario, un chat, un modelo de
+          lenguaje— y se ejecutan solas, sin que nadie tipee nada en el medio.
+          El demo construye un bot de Telegram que resume la agenda semanal de
+          un Google Calendar, en dos versiones pensadas para comparar: una
+          <strong>clásica</strong>, donde cada paso está programado de antemano,
+          y otra con <strong>un único paso de IA</strong>, donde el modelo no
+          decide nada —ni cuándo ejecutarse, ni qué consultar—: solo redacta el
+          resumen a partir de hechos ya calculados por el resto del workflow.
+        </p>
+
+        <div class="destacado">
+          <p>
+            <strong><a href="materiales/demo-n8n-calendar-telegram.zip">Descargar el demo (zip)</a></strong><br>
+            Adentro vienen los workflows en formato <code>.json</code>, el
+            prompt del paso de IA y un <code>README.md</code> con la puesta a
+            punto completa: crear el bot de Telegram, conectar Google Calendar
+            y las pruebas sugeridas antes de activarlo.
+          </p>
+        </div>
+
+        <p>
+          Para usarlo: descomprimí el zip y, en n8n, creá un workflow nuevo e
+          importá uno de los archivos <code>.json</code> (el recomendado es
+          <code>00-demo-comparativa-un-bot.json</code>). Los dos pasos, en
+          imágenes:
+        </p>
+
+        <div class="pasos-capturas">
+          <figure class="captura">
+            <img
+              src="imagenes/n8n-paso-1-new-workflow.png"
+              alt="Captura de n8n: el menú del botón «+» desplegado, con la opción «New workflow» al principio de la lista."
+              width="318" height="343" loading="lazy">
+            <figcaption>1 · Botón <code>+</code> → <strong>New workflow</strong></figcaption>
+          </figure>
+          <figure class="captura">
+            <img
+              src="imagenes/n8n-paso-2-import-from-file.png"
+              alt="Captura de n8n: el menú «···» del workflow desplegado, con la opción «Import from file…» hacia el final de la lista."
+              width="340" height="575" loading="lazy">
+            <figcaption>2 · Menú <code>···</code> → <strong>Import from file…</strong></figcaption>
+          </figure>
+        </div>
+
         <!-- materiales:agentes:inicio -->
         <h3 class="subtitulo-lista">Materiales de la clase</h3>
         <ul class="lista-materiales">
+          <li class="material"><a href="materiales/demo-n8n-calendar-telegram.zip">Demo n8n Calendar Telegram</a><span class="material-tipo">carpeta comprimida · zip</span></li>
           <li class="material"><a href="materiales/diapositivas/2.clase-agentes-autonomos.pdf">Clase Agentes Autonomos</a><span class="material-tipo">diapositivas · pdf</span></li>
         </ul>
         <!-- materiales:agentes:fin -->
@@ -150,6 +204,7 @@
       <section id="vibecoding" aria-labelledby="titulo-vibecoding">
         <p class="ceja">clase 03</p>
         <h2 id="titulo-vibecoding">Vibecoding</h2>
+        <p class="docente">docente: Mauro Santelli</p>
         <p class="intro-modulo">
           Programar delegando la escritura del código a un modelo de lenguaje.
           La destreza central no es tipear código: es especificar bien lo que se
@@ -375,6 +430,10 @@
               <dd>Un modelo que corre en tu propia computadora, sin enviar nada a un servidor ajeno. Se gana privacidad e independencia; a cambio, suelen ser modelos más chicos que los comerciales.</dd>
             </div>
             <div class="termino">
+              <dt>n8n</dt>
+              <dd>Una herramienta para armar workflows dibujándolos en pantalla: cada caja es un paso (leer un calendario, mandar un mensaje) y las flechas dicen qué sigue a qué. En la clase de agentes la usamos para comparar un flujo programado con uno que incluye un paso de IA.</dd>
+            </div>
+            <div class="termino">
               <dt>prompt</dt>
               <dd>El texto que se le da al modelo como punto de partida: una consigna. Como toda consigna, su formulación condiciona la respuesta.</dd>
             </div>
@@ -405,6 +464,10 @@
             <div class="termino">
               <dt>vibecoding</dt>
               <dd>Programar delegando la escritura del código a un modelo de lenguaje. La destreza central no es tipear: es especificar bien lo que se quiere, criticar el resultado e iterar.</dd>
+            </div>
+            <div class="termino">
+              <dt>workflow</dt>
+              <dd>Una cadena de pasos automatizada: cada paso toma lo que dejó el anterior, lo transforma y lo pasa al siguiente, como el circuito editorial que va del manuscrito a la imprenta. Una vez armado, corre solo cada vez que algo lo dispara.</dd>
             </div>
           </dl>
 
@@ -632,7 +695,10 @@ Sección meta, breve, en primera persona del plural:
             repositorio» — la spec completa quedó en el bloque colapsable de
             arriba, y el repositorio quedó enlazado acá y en los recursos de
             Vibecoding.</li>
-          <li><span class="pendiente">(pendiente)</span> <!-- completar en clase --></li>
+          <li>Ya terminado el taller: «incorporá el demo de n8n de la clase de
+            agentes» — entró el bot de agenda (enviado por Pablo Zdrojewski)
+            con sus instrucciones de importación, los nombres de los docentes
+            en cada clase, y «n8n» y «workflow» al glosario.</li>
         </ol>
 
         <p class="cierre">
